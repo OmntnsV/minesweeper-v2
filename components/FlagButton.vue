@@ -1,11 +1,5 @@
 <script setup lang="ts">
   import { Game } from "~/types/game";
-  import {
-    HoverCard,
-    HoverCardContent,
-    HoverCardTrigger,
-  } from '@/components/ui/hover-card'
-
   const props = defineProps({
     gameInstance: {type: Game, required: true},
   });
