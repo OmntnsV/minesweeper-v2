@@ -1,6 +1,8 @@
 # Omntns-Sweeper Reatomized [WIP]
 
-Look at the [previous version](https://omntnsv.github.io/minesweeper/) to experience legacy version.
+> not hosted till release
+
+Look at the [previous version](https://omntnsv.github.io/minesweeper/) to experience 1.5 years of my personal progress (or lack thereof).
 
 ## Why new version?
 
