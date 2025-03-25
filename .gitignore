@@ -5,6 +5,7 @@
 .nitro
 .cache
 dist
+/lib/utils.ts
 
 # Node dependencies
 node_modules

@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import { Cell } from '~/types/game'
-  import { Flag } from 'lucide-vue-next';
   import {CellContent} from "~/types/enums";
 
   const props = defineProps({
@@ -10,25 +9,6 @@
   const handleClick = () => {
     props.cell?.handleClick();
   }
-
-  const cellContent = computed(() => {
-    const cell = props.cell;
-    if (props.cell?.flagged.value) {
-      return '🚩';
-    }
-    if (!cell?.revealed.value) {
-      return '';
-    }
-    const cellState = cell?.content.value;
-    switch (cellState) {
-      case 0:
-        return '';
-      case 9:
-        return '💣';
-      default:
-        return cellState;
-    }
-  })
 
   const isCellClickable = computed(() => {
     const isRevealed = props.cell?.revealed.value;
@@ -50,18 +30,19 @@
       'bombed': cell?.isMined && cell?.revealed.value,
       'hover:scale-110 cursor-pointer': isCellClickable,
     }"
-    class="content m-1 size-8 border border-primary rounded-sm flex justify-center items-center transition select-none"
+    class="cell m-1 border border-primary rounded-sm flex justify-center items-center transition select-none aspect-square"
     @click="handleClick"
-    @contextmenu.prevent="cell?.toggleFlag"
+    @contextmenu.prevent="cell?.handleRightClick()"
   >
-    <span v-if="cellContent !== '🚩'">{{ cellContent }}</span>
-    <Flag v-if="cellContent === '🚩'" class="text-primary"/>
+    <!-- TODO: Remove listeners from every single cell -->
+    <CellDisplayContent :cell="cell" />
   </div>
 </template>
 
 <style scoped>
- .content {
-   aspect-ratio: 1/1;
+ .cell {
+   min-width: 25px;
+   box-sizing: content-box;
  }
 
  .revealed {

@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     'nuxt-lucide-icons',
     '@vueuse/nuxt',
     '@nuxtjs/google-fonts',
+    '@nuxt/eslint'
   ],
   css: ['~/style.css'],
   shadcn: {

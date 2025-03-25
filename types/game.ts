@@ -9,10 +9,10 @@ export class Game {
     };
 
     static difficultyDictionary = {
-        [Difficulty.Easy]: 0.2,
-        [Difficulty.Moderate]: 0.25,
-        [Difficulty.Hard]: 0.3,
-        [Difficulty.PureEvil]: 0.5
+        [Difficulty.Easy]: 0.15,
+        [Difficulty.Moderate]: 0.2,
+        [Difficulty.Hard]: 0.25,
+        [Difficulty.PureEvil]: 0.4
     }
 
     initialized: boolean = false;
@@ -96,7 +96,18 @@ export class Game {
         }
     }
 
-    //TODO: Implement win condition
+    //TODO: Implement game final logic
+    isGameWon = computed(() => {
+        for (let y = 0; y < Game.fieldSizeDictionary[this.fieldSize]; y++) {
+            for (let x = 0; x < Game.fieldSizeDictionary[this.fieldSize]; x++) {
+                //Check if all mines are flagged
+                if (this.field[y][x].content.value === CellContent.Mine && !this.field[y][x].flagged.value) return false;
+                //Check if all non-mines are revealed
+                if (this.field[y][x].content.value !== CellContent.Mine && !this.field[y][x].revealed.value) return false;
+            }
+        }
+        return true;
+    });
 }
 
 export class Cell {
@@ -126,6 +137,10 @@ export class Cell {
         if (this.flagged.value) return;
         if (this.content.value === CellContent.Mine) this.hostedGame.onDefeat();
         Cell.cellRevealSequence(this.hostedGame, this);
+    }
+
+    handleRightClick(): void {
+        this.toggleFlag();
     }
 
     toggleFlag() {
